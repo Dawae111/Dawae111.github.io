@@ -1,58 +1,174 @@
 ---
-import Icon from './Icon.astro';
+import 'photoswipe/style.css';
 ---
-<dialog id="figure-viewer" class="figure-viewer" aria-labelledby="figure-viewer-title">
-  <div class="figure-viewer-panel">
-    <div class="figure-viewer-header">
-      <p id="figure-viewer-title"></p>
-      <button class="figure-viewer-close" type="button" aria-label="Close figure preview" autofocus>
-        <Icon name="close" size={18} /><span>Close</span>
-      </button>
-    </div>
-    <div class="figure-viewer-stage"><img data-full-figure alt="" /></div>
-  </div>
-</dialog>
 
 <script>
-  const viewer = document.querySelector<HTMLDialogElement>('#figure-viewer');
-  const image = viewer?.querySelector<HTMLImageElement>('[data-full-figure]');
-  const title = viewer?.querySelector<HTMLElement>('#figure-viewer-title');
-  const closeButton = viewer?.querySelector<HTMLButtonElement>('.figure-viewer-close');
+  // Load the gesture engine only when a reader opens a figure.
+  let opening = false;
+  document.querySelectorAll<HTMLAnchorElement>('[data-figure-link]').forEach(link => {
+    link.setAttribute('aria-haspopup', 'dialog');
+    link.setAttribute('aria-label', `Enlarge figure for ${link.dataset.figureTitle}`);
+    link.title = 'Enlarge figure';
+    link.addEventListener('click', async event => {
+      // Keep the full-resolution anchor as the no-JS / modified-click fallback.
+      if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      event.preventDefault();
+      if (opening) return;
+      opening = true;
+      let PhotoSwipe;
+      try {
+        ({ default: PhotoSwipe } = await import('photoswipe'));
+      } catch {
+        opening = false;
+        window.location.assign(link.href);
+        return;
+      }
 
-  if (viewer && image && title && closeButton && typeof viewer.showModal === 'function') {
-    let trigger: HTMLAnchorElement | null = null;
-    let pressedBackdrop = false;
-
-    document.querySelectorAll<HTMLAnchorElement>('[data-figure-link]').forEach(link => {
-      link.setAttribute('aria-haspopup', 'dialog');
-      link.setAttribute('aria-controls', viewer.id);
-      link.setAttribute('aria-label', `Enlarge figure for ${link.dataset.figureTitle}`);
-      link.title = 'Enlarge figure';
-      link.addEventListener('click', event => {
-        // Preserve ordinary modified-click / open-in-new-tab link behavior.
-        if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-        event.preventDefault();
-        trigger = link;
-        title.textContent = link.dataset.figureTitle || 'Publication figure';
-        image.alt = link.querySelector('img')?.alt || 'Publication figure';
-        image.src = link.href;
-        document.documentElement.classList.add('figure-viewer-open');
-        viewer.showModal();
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const viewer = new PhotoSwipe({
+        dataSource: [{
+          src: link.href,
+          width: Number(link.dataset.figureWidth),
+          height: Number(link.dataset.figureHeight),
+          alt: link.querySelector('img')?.alt || 'Publication figure',
+        }],
+        mainClass: 'figure-viewer',
+        bgOpacity: 0.94,
+        initialZoomLevel: 'fit',
+        secondaryZoomLevel: ({ fit }) => Math.min(fit * 3, 2),
+        // Finite zoom limit; enlarging beyond native pixels adds size, not detail.
+        maxZoomLevel: ({ fit }) => Math.max(fit * 2, Math.min(fit * 8, 2)),
+        paddingFn: ({ x }) => ({ top: 96, bottom: 122, left: x < 640 ? 12 : 24, right: x < 640 ? 12 : 24 }),
+        showHideAnimationType: reducedMotion ? 'none' : 'fade',
+        showAnimationDuration: 120,
+        hideAnimationDuration: 120,
+        zoomAnimationDuration: reducedMotion ? 0 : 180,
+        pinchToClose: false,
+        closeOnVerticalDrag: false,
+        allowPanToNext: false,
+        imageClickAction: false,
+        bgClickAction: 'close',
+        // Single taps keep controls visible. Double-tap zooms around the tap.
+        tapAction: (_point, originalEvent) => {
+          if ((originalEvent.target as HTMLElement).matches('.pswp__item, .pswp__zoom-wrap')) viewer.close();
+        },
+        doubleTapAction: 'zoom',
+        close: false,
+        zoom: false,
+        counter: false,
+        arrowPrev: false,
+        arrowNext: false,
+        returnFocus: false,
       });
-    });
 
-    closeButton.addEventListener('click', () => viewer.close());
-    // Native dialog handles Escape and keeps keyboard focus inside the modal.
-    viewer.addEventListener('pointerdown', event => { pressedBackdrop = event.target === viewer; });
-    viewer.addEventListener('click', event => {
-      if (pressedBackdrop && event.target === viewer) viewer.close();
-      pressedBackdrop = false;
+      const zoom = (factor: number) => {
+        const slide = viewer.currSlide;
+        if (slide) viewer.zoomTo(Math.max(slide.zoomLevels.initial, Math.min(slide.zoomLevels.max, slide.currZoomLevel * factor)));
+      };
+      const fit = () => {
+        if (viewer.currSlide) viewer.zoomTo(viewer.currSlide.zoomLevels.initial);
+      };
+
+      viewer.on('uiRegister', () => {
+        viewer.ui?.registerElement({
+          name: 'figure-title', order: 1,
+          onInit: element => {
+            element.id = 'figure-viewer-title';
+            element.textContent = link.dataset.figureTitle || 'Publication figure';
+          },
+        });
+        viewer.ui?.registerElement({
+          name: 'figure-close', order: 20, isButton: true,
+          html: '<span aria-hidden="true">×</span> Close',
+          ariaLabel: 'Close figure preview', onClick: 'close',
+        });
+        viewer.ui?.registerElement({
+          name: 'figure-controls', appendTo: 'root',
+          html: `<div class="figure-zoom-buttons" role="group" aria-label="Figure zoom controls">
+            <button type="button" data-zoom-out aria-label="Zoom out">−</button>
+            <span data-zoom-level aria-label="Zoom relative to fit">100%</span>
+            <button type="button" data-zoom-in aria-label="Zoom in">+</button>
+            <button type="button" data-zoom-fit aria-label="Fit entire figure">Fit</button>
+          </div>
+          <p class="figure-gesture-hint">Pinch or double-tap to zoom · Drag to move</p>`,
+          onInit: element => {
+            const out = element.querySelector<HTMLButtonElement>('[data-zoom-out]')!;
+            const into = element.querySelector<HTMLButtonElement>('[data-zoom-in]')!;
+            const level = element.querySelector<HTMLElement>('[data-zoom-level]')!;
+            out.addEventListener('click', () => zoom(1 / 1.5));
+            into.addEventListener('click', () => zoom(1.5));
+            element.querySelector('[data-zoom-fit]')!.addEventListener('click', fit);
+            if (window.matchMedia('(pointer: fine)').matches) {
+              element.querySelector('.figure-gesture-hint')!.textContent = 'Double-click to zoom · Drag to move';
+            }
+            const update = () => {
+              const slide = viewer.currSlide;
+              if (!slide) return;
+              level.textContent = `${Math.round(slide.currZoomLevel / slide.zoomLevels.initial * 100)}%`;
+              out.disabled = slide.currZoomLevel <= slide.zoomLevels.initial + 0.001;
+              into.disabled = slide.currZoomLevel >= slide.zoomLevels.max - 0.001;
+            };
+            viewer.on('zoomPanUpdate', update);
+            viewer.on('change', update);
+          },
+        });
+      });
+
+      viewer.on('keydown', event => {
+        const key = event.originalEvent;
+        if (key.metaKey || key.ctrlKey || key.altKey) return;
+        if (['+', '=', '-', '0'].includes(key.key)) {
+          event.preventDefault();
+          key.preventDefault();
+          if (key.key === '0') fit();
+          else zoom(key.key === '-' ? 1 / 1.5 : 1.5);
+        }
+      });
+      const background = [...document.querySelectorAll<HTMLElement>('body > .page-shell, body > .skip-link')];
+      const previousInert = background.map(element => element.inert);
+      viewer.on('afterInit', () => {
+        viewer.element?.setAttribute('aria-labelledby', 'figure-viewer-title');
+        viewer.element?.addEventListener('dblclick', event => {
+          if ((event.target as HTMLElement).matches('.pswp__img')) {
+            viewer.currSlide?.toggleZoom({ x: event.clientX, y: event.clientY });
+          }
+        });
+        background.forEach(element => { element.inert = true; });
+        viewer.element?.querySelector<HTMLButtonElement>('.pswp__button--figure-close')?.focus();
+      });
+      viewer.on('destroy', () => {
+        document.documentElement.classList.remove('figure-viewer-open');
+        background.forEach((element, i) => { element.inert = previousInert[i]; });
+        link.focus({ preventScroll: true });
+        opening = false;
+      });
+      // Measure the final viewport after hiding the page scrollbar.
+      document.documentElement.classList.add('figure-viewer-open');
+      viewer.init();
     });
-    viewer.addEventListener('close', () => {
-      document.documentElement.classList.remove('figure-viewer-open');
-      image.removeAttribute('src');
-      trigger?.focus({ preventScroll: true });
-      trigger = null;
-    });
-  }
+  });
 </script>
+
+<style is:global>
+  /* Class-scoped overrides for PhotoSwipe's unlayered stylesheet. */
+  .figure-viewer { --pswp-bg: #101922; --pswp-icon-color: #24313b; }
+  .figure-viewer .pswp__top-bar { align-items: center; gap: 16px; padding: max(10px, env(safe-area-inset-top)) 20px 10px; background: var(--paper); }
+  .figure-viewer .pswp__figure-title { flex: 1; min-width: 0; color: var(--ink); font: 600 14px/1.5 var(--body); display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; }
+  .figure-viewer .pswp__button--figure-close { width: auto; height: 44px; min-width: 80px; margin: 0; padding: 8px 12px; display: flex; align-items: center; justify-content: center; gap: 7px; border: 1px solid var(--rule); border-radius: 6px; background: white; color: var(--ink); font: 500 14px/1 var(--body); opacity: 1; }
+  .figure-viewer .pswp__button--figure-close span { font-size: 23px; font-weight: 400; }
+  .figure-viewer .pswp__preloader { width: 32px; margin: 0; flex-shrink: 0; }
+  .figure-viewer .pswp__figure-controls { position: absolute; bottom: max(18px, env(safe-area-inset-bottom)); left: 50%; transform: translateX(-50%); width: max-content; max-width: calc(100% - 24px); color: white; text-align: center; pointer-events: auto; }
+  .figure-viewer .figure-zoom-buttons { display: flex; align-items: center; justify-content: center; gap: 6px; width: max-content; margin: 0 auto; padding: 6px; background: var(--paper); border: 1px solid var(--rule); border-radius: 9px; color: var(--ink); }
+  .figure-viewer .figure-zoom-buttons button { min-width: 44px; min-height: 44px; padding: 6px 10px; border: 0; border-radius: 5px; color: var(--ink); background: transparent; font: 500 22px/1 var(--body); cursor: pointer; }
+  .figure-viewer .figure-zoom-buttons [data-zoom-fit] { font-size: 14px; border-left: 1px solid var(--rule); border-radius: 0 5px 5px 0; }
+  .figure-viewer [data-zoom-level] { min-width: 54px; font-size: 14px; font-variant-numeric: tabular-nums; }
+  .figure-viewer .figure-gesture-hint { margin-top: 9px; font-size: 13px; line-height: 1.5; }
+  .figure-viewer button:hover:not(:disabled) { background: var(--hover); }
+  .figure-viewer button:disabled { opacity: .35; cursor: default; }
+  .figure-viewer button:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+  .figure-viewer .pswp__error-msg { background: white; color: var(--ink); font-size: 16px; padding: 12px; }
+  @media (max-width: 640px) {
+    .figure-viewer .pswp__top-bar { gap: 12px; padding-inline: 12px; }
+    .figure-viewer .pswp__figure-title { font-size: 13px; }
+  }
+</style>
