@@ -1,0 +1,29 @@
+---
+import { Image } from 'astro:assets';
+import type { Paper } from '../data/research';
+import Icon from './Icon.astro';
+interface Props { paper: Paper; }
+const { paper } = Astro.props;
+---
+<article class="paper" id={paper.id}>
+  <div class="paper-media" data-preview>
+    <a class="paper-image-link" href={paper.links[0].href} aria-label={`Read ${paper.title}`}>
+      <Image src={paper.image} alt={paper.imageAlt} widths={[320, 640, 960]} sizes="(max-width: 640px) calc(100vw - 40px), 300px" format="webp" quality={90} loading="lazy" />
+    </a>
+    {paper.video && <>
+      <video data-research-video muted loop playsinline preload="none" aria-label={paper.imageAlt}>
+        <source data-src={paper.video} type="video/mp4" />
+      </video>
+      <button class="video-toggle" data-video-toggle aria-label={`Play preview for ${paper.id}`} aria-pressed="false">
+        <span data-play-icon><Icon name="play" size={16} /></span><span data-pause-icon hidden><Icon name="pause" size={16} /></span>
+      </button>
+    </>}
+  </div>
+  <div class="paper-copy">
+    <h3><a href={paper.links[0].href}>{paper.title}</a></h3>
+    <p class="authors">{paper.authors.map((author, i) => <>{i > 0 && ', '}{author.name === 'David Huang' ? <strong>{author.name}</strong> : author.name}{author.equal && <sup>*</sup>}</>)}</p>
+    <p class:list={['venue', { accepted: paper.accepted }]}>{paper.venue}</p>
+    <p class="paper-summary">{paper.description}</p>
+    <div class="paper-links">{paper.links.map(link => <a href={link.href}>{link.label}<Icon name="arrow" size={12} /></a>)}</div>
+  </div>
+</article>

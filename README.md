@@ -1,73 +1,55 @@
-# Getting Started with Create React App
+# David Huang
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Research homepage at **https://dawae111.github.io/**, built with Astro, TypeScript, and plain CSS. Pages are generated as static HTML; there is no React runtime or server to maintain.
 
-## Available Scripts
+## Local development
 
-In the project directory, you can run:
+Use Node.js 24 and npm.
 
-### `npm start`
+```sh
+npm ci
+npm run dev
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Before publishing:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+```sh
+npm run check
+npm run build
+npm run preview
+```
 
-### `npm test`
+## Editing content
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- `src/data/profile.ts`: contact links, experience, dates, and roles. Blank optional social links are omitted.
+- `src/data/research.ts`: papers, authors, conference/preprint status, summaries, and real resource links. David's name is highlighted automatically.
+- `src/pages/index.astro`: biography and page structure.
+- `src/assets/`: portrait and paper illustrations; Astro creates optimized WebP variants during the build.
+- `src/styles/global.css`: responsive layout, fonts, colors, and spacing.
+- `public/logos/`: institution logos.
 
-### `npm run build`
+For a research video, add the actual MP4 to `public/videos/` and set the corresponding paper's `video` field to `/videos/filename.mp4`. Keep the still image as a fallback. Previews play muted only while visible, have a pause control, and respect reduced-motion preferences. Currently all four papers use still figures.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Google Scholar and X are intentionally absent until their exact profile URLs are provided. New code and project links should only be added once they are live.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Deployment
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+GitHub repository: `Dawae111/Dawae111.github.io`.
 
-### `npm run eject`
+In **Settings → Pages → Build and deployment**, select **GitHub Actions**. `.github/workflows/deploy.yml` checks and builds pull requests; pushes to `main` also deploy the generated `dist/` directory to GitHub Pages. The repository's visibility need not change.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+The site URL is configured in `astro.config.mjs`. If changing domains, also update `public/sitemap.xml` and `public/robots.txt`.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Asset sources
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- Portrait: David's supplied photograph, used without generative edits.
+- TurboVGGT figure: https://turbovggt.github.io/Fig_illustration.png
+- DLWM figure: https://arxiv.org/html/2606.15160v1/figures/intro_comparison.png
+- MoVieDrive figure: https://arxiv.org/html/2508.14327v2/Fig_illustration.png
+- LangSVR figure: https://arxiv.org/html/2602.15734v1/Fig_illustration.png
+- Qualcomm and Huawei logos: Simple Icons, using the brand colors supplied by the package.
+- Tsinghua seal: https://vi.tsinghua.edu.cn/gk/xxbz/xh/bzjbzsy.htm
+- SenseTime logo: https://www.sensetime.com/assets/hero-icon-logoblack.png
+- Manrope and Newsreader fonts: self-hosted Fontsource packages, supplied under their respective licenses.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-# Dawae111.github.io
-
-Personal Website
+Paper author lists and venue labels follow the linked public records. Submitted work without a verified acceptance is labeled as a preprint. See `DESIGN.md` for the design direction.
