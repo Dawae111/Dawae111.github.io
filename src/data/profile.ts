@@ -3,7 +3,7 @@ export const profile = {
   email: 'dawae.huang@mail.utoronto.ca',
   university: 'University of Toronto',
   universityUrl: 'https://www.utoronto.ca/',
-  description: 'David Huang is a Computer Engineering undergraduate at the University of Toronto working on video generation, 3D vision, and multimodal reasoning.',
+  description: 'David Huang is a Computer Engineering undergraduate at the University of Toronto working on video generation, 3D vision, and multimodal reasoning, with papers at NeurIPS 2026 and CVPR 2026 Findings.',
 };
 
 // Missing optional profiles stay absent from the page. Add verified URLs here.
@@ -14,6 +14,11 @@ export const socials = [
   { name: 'Google Scholar', icon: 'scholar', href: 'https://scholar.google.ca/citations?user=JPDKdjIAAAAJ&hl=en' },
   { name: 'GitHub', icon: 'github', href: 'https://github.com/Dawae111' },
   { name: 'X', icon: 'x', href: 'https://x.com/dawae_h' },
+] as const;
+
+// Verified research profiles listed only in search metadata (not shown as icons).
+export const academicProfiles = [
+  { name: 'OpenReview', href: 'https://openreview.net/profile?id=~David_Huang5' },
 ] as const;
 
 const monthFormatter = new Intl.DateTimeFormat('en-US', {

@@ -32,6 +32,6 @@ Opening and closing the figure viewer must not shift the background page. Reserv
 
 Store publication figures as lossless WebP so the viewer downloads less with no pixel change; never re-encode scientific figures with lossy settings for the viewer. Pass the loaded thumbnail as the viewer placeholder so a figure appears immediately and sharpens when the full image arrives.
 
-The introduction's second paragraph ends with David's current goal: applying to PhD programs for Fall 2027 and open to research roles in industry. Update or remove that sentence when his plans change.
+The introduction's first paragraph says "My research spans" (not "research interests"), and the second opens "I aim to build models…" so the two paragraphs do not repeat "interest". The second paragraph ends with David's current goal, PhD first: "I am applying to PhD programs for Fall 2027, and I am also open to industry research roles." Update or remove that sentence when his plans change.
 
-Social icons use a single styled tooltip; do not add a `title` attribute, which would show a second native tooltip. The page title is "David Huang · University of Toronto", and the homepage includes schema.org Person JSON-LD linking the verified profiles, so people searching his common name can find the site.
+Social icons use a single styled tooltip; do not add a `title` attribute, which would show a second native tooltip. The page title is "David Huang · University of Toronto", and the homepage includes schema.org ProfilePage JSON-LD whose Person links the verified profiles (including OpenReview, kept out of the visible icons) and is named as author of the four papers, so people searching his common name can find the site.
