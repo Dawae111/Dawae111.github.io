@@ -20,6 +20,8 @@ The homepage sharing cover is a 1200 × 630 typographic image with David's name,
 
 Keep the interface quiet: natural document flow, no hero statistics, decorative badges, oversized CTA buttons, empty cards, or unnecessary animation. Verify at desktop and narrow mobile widths with actual titles and author lists.
 
+In the desktop figure viewer, use a normal pointer cursor on the enlarged image because clicking closes it. Do not inherit a zoom-out magnifier from the image-viewing library when desktop zoom is disabled. Homepage thumbnails may retain their zoom-in cursor.
+
 Use a 1280px maximum page width so the full publication titles fit on one line on wide screens. Retain readable type sizes and natural wrapping as the viewport narrows; do not truncate titles or force no-wrap. The browser icon is a blue rounded square with clearly drawn white DH initials.
 
 Keep introduction body text at 16px on desktop and mobile. Experience roles/descriptions and publication authors, venues, summaries, and resource links are 14px; dates and supporting notes are 13px. Publication titles remain 16px so wide-screen titles keep their established single-line layout. Social icons stay visually compact inside 44px-square hit areas, and publication resource links have at least a 44px-square hit area. Paper-image keyboard focus must remain visible inside the rounded media container's clipping edge.

@@ -36,7 +36,7 @@ import 'photoswipe/style.css';
           height: Number(link.dataset.figureHeight),
           alt: link.querySelector('img')?.alt || 'Publication figure',
         }],
-        mainClass: 'figure-viewer',
+        mainClass: `figure-viewer ${detailZoom ? 'figure-viewer--detail' : 'figure-viewer--simple'}`,
         bgOpacity: 0.94,
         initialZoomLevel: 'fit',
         secondaryZoomLevel: ({ fit }) => detailZoom ? Math.min(fit * 3, 2) : fit,
@@ -159,6 +159,8 @@ import 'photoswipe/style.css';
 <style is:global>
   /* Class-scoped overrides for PhotoSwipe's unlayered stylesheet. */
   .figure-viewer { --pswp-bg: #101922; --pswp-icon-color: #24313b; }
+  /* The desktop image is a close target, not a zoom-out control. */
+  .figure-viewer.figure-viewer--simple .pswp__img { cursor: pointer; }
   .figure-viewer .pswp__top-bar { align-items: center; gap: 16px; padding: max(10px, env(safe-area-inset-top)) 20px 10px; background: var(--paper); }
   .figure-viewer .pswp__figure-title { flex: 1; min-width: 0; color: var(--ink); font: 600 14px/1.5 var(--body); display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; }
   .figure-viewer .pswp__button--figure-close { width: auto; height: 44px; min-width: 80px; margin: 0; padding: 8px 12px; display: flex; align-items: center; justify-content: center; gap: 7px; border: 1px solid var(--rule); border-radius: 6px; background: white; color: var(--ink); font: 500 14px/1 var(--body); opacity: 1; }
