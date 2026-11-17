@@ -25,6 +25,10 @@ import 'photoswipe/style.css';
       }
 
       const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      // Small/touch screens need detail zoom; desktop keeps a simple open/close view.
+      // Detect the input as well as width so landscape phones and tablets retain gestures.
+      const detailZoom = window.matchMedia('(pointer: coarse), (hover: none), (max-width: 640px)').matches
+        || (event instanceof PointerEvent && event.pointerType === 'touch');
       const viewer = new PhotoSwipe({
         dataSource: [{
           src: link.href,
@@ -35,10 +39,10 @@ import 'photoswipe/style.css';
         mainClass: 'figure-viewer',
         bgOpacity: 0.94,
         initialZoomLevel: 'fit',
-        secondaryZoomLevel: ({ fit }) => Math.min(fit * 3, 2),
+        secondaryZoomLevel: ({ fit }) => detailZoom ? Math.min(fit * 3, 2) : fit,
         // Finite zoom limit; enlarging beyond native pixels adds size, not detail.
-        maxZoomLevel: ({ fit }) => Math.max(fit * 2, Math.min(fit * 8, 2)),
-        paddingFn: ({ x }) => ({ top: 96, bottom: 122, left: x < 640 ? 12 : 24, right: x < 640 ? 12 : 24 }),
+        maxZoomLevel: ({ fit }) => detailZoom ? Math.max(fit * 2, Math.min(fit * 8, 2)) : fit,
+        paddingFn: ({ x }) => ({ top: 96, bottom: detailZoom ? 122 : 24, left: x < 640 ? 12 : 24, right: x < 640 ? 12 : 24 }),
         showHideAnimationType: reducedMotion ? 'none' : 'fade',
         showAnimationDuration: 120,
         hideAnimationDuration: 120,
@@ -46,13 +50,13 @@ import 'photoswipe/style.css';
         pinchToClose: false,
         closeOnVerticalDrag: false,
         allowPanToNext: false,
-        imageClickAction: false,
+        imageClickAction: detailZoom ? false : 'close',
         bgClickAction: 'close',
         // Single taps keep controls visible. Double-tap zooms around the tap.
         tapAction: (_point, originalEvent) => {
           if ((originalEvent.target as HTMLElement).matches('.pswp__item, .pswp__zoom-wrap')) viewer.close();
         },
-        doubleTapAction: 'zoom',
+        doubleTapAction: detailZoom ? 'zoom' : false,
         close: false,
         zoom: false,
         counter: false,
@@ -60,6 +64,7 @@ import 'photoswipe/style.css';
         arrowNext: false,
         returnFocus: false,
       });
+      if (!detailZoom) viewer.addFilter('isContentZoomable', () => false);
 
       const zoom = (factor: number) => {
         const slide = viewer.currSlide;
@@ -82,6 +87,7 @@ import 'photoswipe/style.css';
           html: '<span aria-hidden="true">×</span> Close',
           ariaLabel: 'Close figure preview', onClick: 'close',
         });
+        if (!detailZoom) return;
         viewer.ui?.registerElement({
           name: 'figure-controls', appendTo: 'root',
           html: `<div class="figure-zoom-buttons" role="group" aria-label="Figure zoom controls">
@@ -115,6 +121,7 @@ import 'photoswipe/style.css';
       });
 
       viewer.on('keydown', event => {
+        if (!detailZoom) return;
         const key = event.originalEvent;
         if (key.metaKey || key.ctrlKey || key.altKey) return;
         if (['+', '=', '-', '0'].includes(key.key)) {
@@ -128,7 +135,7 @@ import 'photoswipe/style.css';
       const previousInert = background.map(element => element.inert);
       viewer.on('afterInit', () => {
         viewer.element?.setAttribute('aria-labelledby', 'figure-viewer-title');
-        viewer.element?.addEventListener('dblclick', event => {
+        if (detailZoom) viewer.element?.addEventListener('dblclick', event => {
           if ((event.target as HTMLElement).matches('.pswp__img')) {
             viewer.currSlide?.toggleZoom({ x: event.clientX, y: event.clientY });
           }
