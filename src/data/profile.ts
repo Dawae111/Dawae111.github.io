@@ -19,6 +19,7 @@ export const socials = [
 // Verified research profiles listed only in search metadata (not shown as icons).
 export const academicProfiles = [
   { name: 'OpenReview', href: 'https://openreview.net/profile?id=~David_Huang5' },
+  { name: 'Semantic Scholar', href: 'https://www.semanticscholar.org/author/David-Huang/2376508722' },
 ] as const;
 
 const monthFormatter = new Intl.DateTimeFormat('en-US', {
