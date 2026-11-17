@@ -36,7 +36,9 @@ Google Scholar and X are intentionally absent until their exact profile URLs are
 
 GitHub repository: `Dawae111/Dawae111.github.io`.
 
-In **Settings → Pages → Build and deployment**, select **GitHub Actions**. `.github/workflows/deploy.yml` checks and builds pull requests; pushes to `main` also deploy the generated `dist/` directory to GitHub Pages. The repository's visibility need not change.
+In **Settings → Pages → Build and deployment**, select **GitHub Actions**. `.github/workflows/deploy.yml` checks and builds pull requests; pushes to `main` also deploy the generated `dist/` directory to GitHub Pages.
+
+**Deployment prerequisite:** this repository is currently private. GitHub rejected enabling workflow deployment because the current account plan does not support private-repository Pages. Before merging the first version, either make this website repository public or use a plan that supports private-repository Pages. Repository visibility has not been changed. Keeping the source private and deploying the static output with another host is also possible.
 
 The site URL is configured in `astro.config.mjs`. If changing domains, also update `public/sitemap.xml` and `public/robots.txt`.
 
