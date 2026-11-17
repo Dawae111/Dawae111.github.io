@@ -3,7 +3,7 @@ import { Image } from 'astro:assets';
 import Page from '../layouts/Page.astro';
 import Icon from '../components/Icon.astro';
 import ResearchRow from '../components/ResearchRow.astro';
-import { profile, socials, experiences } from '../data/profile';
+import { profile, socials, experiences, formatMonth } from '../data/profile';
 import { papers } from '../data/research';
 import portrait from '../assets/portrait.jpg';
 ---
@@ -24,8 +24,6 @@ import portrait from '../assets/portrait.jpg';
         <p>I am interested in models that can generate, understand, and reason about the visual world. My work explores efficient 3D reconstruction, controllable video generation, and reasoning in latent spaces.</p>
         <div class="social-links" aria-label="Contact and profiles">
           {socials.filter(social => social.href).map(social => <a href={social.href} class="social-link" aria-label={social.name} title={social.name}><Icon name={social.icon} /><span class="social-tooltip" aria-hidden="true">{social.name}</span></a>)}
-          <span class="social-divider" aria-hidden="true"></span>
-          <a class="email-text" href={`mailto:${profile.email}`}>{profile.email}</a>
         </div>
       </div>
     </section>
@@ -35,7 +33,10 @@ import portrait from '../assets/portrait.jpg';
         {experiences.map(experience => <li class="experience-row">
           <div class:list={['org-logo', experience.logoClass]}><img src={experience.logo} alt="" width="44" height="44" loading="lazy" /></div>
           <div class="experience-copy">
-            <div class="experience-topline"><h3><a href={experience.url}>{experience.organization}</a></h3><p class="experience-dates"><time datetime={experience.start}>{experience.dates}</time>{experience.duration && <span class="duration">{experience.duration}</span>}</p></div>
+            <div class="experience-topline">
+              <h3><a href={experience.url}>{experience.organization}</a></h3>
+              <p class="experience-dates"><time datetime={experience.start}>{formatMonth(experience.start)}</time> – <time datetime={experience.end}>{formatMonth(experience.end)}</time></p>
+            </div>
             <p class="role">{experience.role}</p>
             <p class="experience-description">{experience.description}</p>
           </div>

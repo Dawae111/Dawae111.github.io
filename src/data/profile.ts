@@ -11,42 +11,48 @@ export const profile = {
 export const socials = [
   { name: 'Email', icon: 'email', href: `mailto:${profile.email}` },
   { name: 'LinkedIn', icon: 'linkedin', href: 'https://www.linkedin.com/in/davidhuang-/' },
-  { name: 'Google Scholar', icon: 'scholar', href: '' },
+  { name: 'Google Scholar', icon: 'scholar', href: 'https://scholar.google.ca/citations?user=JPDKdjIAAAAJ&hl=en' },
   { name: 'GitHub', icon: 'github', href: 'https://github.com/Dawae111' },
-  { name: 'X', icon: 'x', href: '' },
+  { name: 'X', icon: 'x', href: 'https://x.com/dawae_h' },
 ] as const;
+
+const monthFormatter = new Intl.DateTimeFormat('en-US', {
+  month: 'short', year: 'numeric', timeZone: 'UTC',
+});
+
+export const formatMonth = (month: string) =>
+  monthFormatter.format(new Date(`${month}-01T00:00:00Z`));
 
 export const experiences = [
   {
     organization: 'Qualcomm',
     url: 'https://www.qualcomm.com/research',
     role: 'Deep Learning Research Intern',
-    start: '2026-06', end: '2026-08', dates: 'Jun – Aug 2026',
+    start: '2026-06', end: '2026-08',
     description: 'Video diffusion models for image editing and facial reenactment.',
     logo: '/logos/qualcomm.svg', logoClass: 'qualcomm',
-  },
-  {
-    organization: 'Tsinghua University',
-    url: 'https://www.tsinghua.edu.cn/en/',
-    role: 'Student Researcher',
-    start: '2025-09', end: '2026-07', dates: 'Sep 2025 – Jul 2026',
-    description: 'Efficient multimodal reasoning with latent world models and reinforcement learning.',
-    logo: '/logos/tsinghua.jpg', logoClass: 'tsinghua',
   },
   {
     organization: 'Huawei Noah’s Ark Lab',
     url: 'https://www.noahlab.com.hk/',
     role: 'Assistant Researcher',
-    start: '2025-05', end: '2026-04', dates: 'May 2025 – Apr 2026',
-    duration: '12 months',
-    description: 'Video generation, open-vocabulary scene understanding, and efficient 3D reconstruction.',
+    start: '2025-05', end: '2026-05',
+    description: 'Efficient 3D reconstruction, video generation, and open-vocabulary scene understanding.',
     logo: '/logos/huawei.svg', logoClass: 'huawei',
+  },
+  {
+    organization: 'Tsinghua University',
+    url: 'https://www.tsinghua.edu.cn/en/',
+    role: 'Student Researcher',
+    start: '2025-09', end: '2026-07',
+    description: 'Efficient multimodal reasoning with latent world models and reinforcement learning.',
+    logo: '/logos/tsinghua.jpg', logoClass: 'tsinghua',
   },
   {
     organization: 'SenseTime',
     url: 'https://www.sensetime.com/en',
     role: 'Perception Algorithm Intern',
-    start: '2024-05', end: '2024-08', dates: 'May – Aug 2024',
+    start: '2024-05', end: '2024-08',
     description: '3D perception for autonomous driving.',
     logo: '/logos/sensetime.png', logoClass: 'sensetime',
   },

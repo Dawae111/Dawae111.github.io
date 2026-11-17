@@ -30,7 +30,7 @@ npm run preview
 
 For a research video, add the actual MP4 to `public/videos/` and set the corresponding paper's `video` field to `/videos/filename.mp4`. Keep the still image as a fallback. Previews play muted only while visible, have a pause control, and respect reduced-motion preferences. Currently all four papers use still figures.
 
-Google Scholar and X are intentionally absent until their exact profile URLs are provided. New code and project links should only be added once they are live.
+Contact links appear as compact icons in Email, LinkedIn, Google Scholar, GitHub, and X order. The email address is available through its `mailto:` link but is not repeated as visible text. New code and project links should only be added once they are live.
 
 ## Deployment
 
@@ -38,7 +38,7 @@ GitHub repository: `Dawae111/Dawae111.github.io`.
 
 In **Settings → Pages → Build and deployment**, select **GitHub Actions**. `.github/workflows/deploy.yml` checks and builds pull requests; pushes to `main` also deploy the generated `dist/` directory to GitHub Pages.
 
-**Deployment prerequisite:** this repository is currently private. GitHub rejected enabling workflow deployment because the current account plan does not support private-repository Pages. Before merging the first version, either make this website repository public or use a plan that supports private-repository Pages. Repository visibility has not been changed. Keeping the source private and deploying the static output with another host is also possible.
+GitHub Pages on the free plan requires this website repository to be public. Public visibility exposes both the source and its commit history.
 
 The site URL is configured in `astro.config.mjs`. If changing domains, also update `public/sitemap.xml` and `public/robots.txt`.
 
@@ -51,7 +51,7 @@ The site URL is configured in `astro.config.mjs`. If changing domains, also upda
 - LangSVR figure: https://arxiv.org/html/2602.15734v1/Fig_illustration.png
 - Qualcomm and Huawei logos: Simple Icons, using the brand colors supplied by the package.
 - Tsinghua seal: https://vi.tsinghua.edu.cn/gk/xxbz/xh/bzjbzsy.htm
-- SenseTime logo: https://www.sensetime.com/assets/hero-icon-logoblack.png
+- SenseTime logo: https://static.sensetime.com/images/st_logo_ico.png (the official red-orange mark linked by SenseTime's legacy website).
 - Manrope and Newsreader fonts: self-hosted Fontsource packages, supplied under their respective licenses.
 
 Paper author lists and venue labels follow the linked public records. Submitted work without a verified acceptance is labeled as a preprint. See `DESIGN.md` for the design direction.
