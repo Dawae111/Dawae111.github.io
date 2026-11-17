@@ -35,7 +35,7 @@ export const experiences = [
   {
     organization: 'Huawei Noah’s Ark Lab',
     url: 'https://www.noahlab.com.hk/',
-    role: 'Assistant Researcher',
+    role: 'Research Intern',
     start: '2025-05', end: '2026-05',
     description: 'Efficient 3D reconstruction, video generation, and open-vocabulary scene understanding.',
     logo: '/logos/huawei.svg', logoClass: 'huawei',
@@ -51,7 +51,7 @@ export const experiences = [
   {
     organization: 'SenseTime',
     url: 'https://www.sensetime.com/en',
-    role: 'Perception Algorithm Intern',
+    role: 'Research Engineer Intern',
     start: '2024-05', end: '2024-08',
     description: '3D perception for autonomous driving.',
     logo: '/logos/sensetime.png', logoClass: 'sensetime',

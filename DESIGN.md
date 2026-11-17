@@ -8,6 +8,8 @@ Typography: Newsreader for the name and section headings; Manrope for body text 
 
 Use compact recognizable social icons in Email, LinkedIn, Scholar, GitHub, X order. Omit unknown URLs; do not invent profiles or disable fake links. Use actual organization logos, clear dates, and accurate role names. Preserve Findings and preprint labels. Highlight David's name without altering author order.
 
+Use functional English titles that reflect the work and retain internship status: Huawei is Research Intern; SenseTime is Research Engineer Intern.
+
 Keep the email address behind its labeled icon without repeating the address as visible text. The experience order is Qualcomm, Huawei, Tsinghua, SenseTime, as selected by David. Show a month and year at both ends of every date range without a separate duration label. Use SenseTime's familiar red-orange mark. Publication entries retain one brief explanatory sentence about the method, while experience descriptions state the broader research area. Tsinghua's description should foreground multimodal LLM reasoning and reinforcement learning. Unaccepted public manuscripts use Preprint, and MoVieDrive uses CVPR 2026 Findings.
 
 Research media comes from the actual papers. Video previews are optional, muted and inline, with a still fallback, pause control, offscreen pausing, and reduced-motion support. Never fabricate research footage or repurpose someone else's results.
