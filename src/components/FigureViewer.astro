@@ -24,6 +24,8 @@ import 'photoswipe/style.css';
         return;
       }
 
+      // Restore the reading position instantly, even when anchor scrolling is smooth.
+      const pageScroll = { left: window.scrollX, top: window.scrollY, behavior: 'instant' as const };
       const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       // Small/touch screens need detail zoom; desktop keeps a simple open/close view.
       // Detect the input as well as width so landscape phones and tablets retain gestures.
@@ -141,16 +143,20 @@ import 'photoswipe/style.css';
           }
         });
         background.forEach(element => { element.inert = true; });
-        viewer.element?.querySelector<HTMLButtonElement>('.pswp__button--figure-close')?.focus();
+        viewer.element?.querySelector<HTMLButtonElement>('.pswp__button--figure-close')?.focus({ preventScroll: true });
       });
+      // Settle any scroll correction before the background becomes visible.
+      viewer.on('close', () => window.scrollTo(pageScroll));
       viewer.on('destroy', () => {
         document.documentElement.classList.remove('figure-viewer-open');
         background.forEach((element, i) => { element.inert = previousInert[i]; });
         link.focus({ preventScroll: true });
+        window.scrollTo(pageScroll);
         opening = false;
       });
-      // Measure the final viewport after hiding the page scrollbar.
+      // The reserved scrollbar gutter keeps the background layout unchanged.
       document.documentElement.classList.add('figure-viewer-open');
+      window.scrollTo(pageScroll);
       viewer.init();
     });
   });

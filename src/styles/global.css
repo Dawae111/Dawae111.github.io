@@ -3,8 +3,9 @@
 @layer base {
   :root { --paper: #fbfcfd; --ink: #24313b; --muted: #5d6872; --blue: #225c98; --rule: #e1e7eb; --hover: #edf3f8; --body: 'Manrope Variable', sans-serif; --display: 'Newsreader Variable', Georgia, serif; }
   * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; scroll-padding-top: 28px; scrollbar-color: #b6c3cc var(--paper); }
-  html.figure-viewer-open { overflow: hidden; }
+  html { scroll-behavior: smooth; scroll-padding-top: 28px; scrollbar-color: #b6c3cc var(--paper); scrollbar-gutter: stable; }
+  /* Keep the page width and scroll position steady while the viewer is open. */
+  html.figure-viewer-open { overflow: hidden; scroll-behavior: auto; }
   body { margin: 0; color: var(--ink); background: var(--paper); font: 400 16px/1.75 var(--body); -webkit-font-smoothing: antialiased; }
   ::selection { background: #dbeaf6; color: #153d64; }
   a { color: var(--blue); text-decoration: none; text-underline-offset: 4px; text-decoration-thickness: 1px; }
