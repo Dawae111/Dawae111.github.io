@@ -2,13 +2,13 @@
 
 A readable research homepage with a personal introduction, compact experience list, and generous paper illustrations. Inspired by Haian Jin's content structure and the clarity of academic homepages.
 
-The desktop introduction places the real portrait on the left and biography on the right. On mobile, the portrait precedes the biography. Experience precedes Research. Education is included in the introduction. Do not add empty Projects, News, Awards, or Blog sections.
+The desktop introduction places the real portrait on the left and biography on the right. On mobile, the portrait precedes the biography. Experience precedes Publications. Education is included in the introduction; say undergraduate and give the graduation year without a redundant year-of-study label. Do not add empty Projects, News, Awards, or Blog sections.
 
 Typography: Newsreader for the name and section headings; Manrope for body text and metadata. Fonts are self-hosted. Near-white background, dark blue-gray text, restrained blue links. Name is the largest element; paper titles and organization names remain easily scannable.
 
 Use compact recognizable social icons in Email, LinkedIn, Scholar, GitHub, X order. Omit unknown URLs; do not invent profiles or disable fake links. Use actual organization logos, clear dates, and accurate role names. Preserve Findings and preprint labels. Highlight David's name without altering author order.
 
-Keep the email address behind its labeled icon without repeating the address as visible text. The experience order is Qualcomm, Huawei, Tsinghua, SenseTime, as selected by David. Show a month and year at both ends of every date range without a separate duration label. Use SenseTime's familiar red-orange mark. Research entries retain one brief explanatory sentence; unaccepted public manuscripts use Preprint, and MoVieDrive uses CVPR 2026 · Findings.
+Keep the email address behind its labeled icon without repeating the address as visible text. The experience order is Qualcomm, Huawei, Tsinghua, SenseTime, as selected by David. Show a month and year at both ends of every date range without a separate duration label. Use SenseTime's familiar red-orange mark. Publication entries retain one brief explanatory sentence about the method, while experience descriptions state the broader research area. Tsinghua's description should foreground multimodal LLM reasoning and reinforcement learning. Unaccepted public manuscripts use Preprint, and MoVieDrive uses CVPR 2026 Findings.
 
 Research media comes from the actual papers. Video previews are optional, muted and inline, with a still fallback, pause control, offscreen pausing, and reduced-motion support. Never fabricate research footage or repurpose someone else's results.
 

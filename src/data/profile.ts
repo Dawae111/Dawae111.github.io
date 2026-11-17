@@ -45,7 +45,7 @@ export const experiences = [
     url: 'https://www.tsinghua.edu.cn/en/',
     role: 'Student Researcher',
     start: '2025-09', end: '2026-07',
-    description: 'Efficient multimodal reasoning with latent world models and reinforcement learning.',
+    description: 'Efficient multimodal LLM reasoning with reinforcement learning.',
     logo: '/logos/tsinghua.jpg', logoClass: 'tsinghua',
   },
   {

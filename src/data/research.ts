@@ -49,7 +49,7 @@ export const papers: Paper[] = [
     id: 'moviedrive',
     title: 'MoVieDrive: Urban Scene Synthesis with Multi-Modal Multi-View Video Diffusion Transformer',
     authors: [{ name: 'Guile Wu' }, { name: 'David Huang' }, { name: 'Dongfeng Bai' }, { name: 'Bingbing Liu' }],
-    venue: 'CVPR 2026 · Findings', accepted: true,
+    venue: 'CVPR 2026 Findings', accepted: true,
     description: 'Generating consistent RGB, depth, and semantic videos across multiple driving views.',
     image: movie,
     imageAlt: 'MoVieDrive generates RGB, depth, and semantic driving scenes from multiple cameras.',
