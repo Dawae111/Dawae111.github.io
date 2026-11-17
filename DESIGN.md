@@ -13,3 +13,5 @@ Keep the email address behind its labeled icon without repeating the address as 
 Research media comes from the actual papers. Video previews are optional, muted and inline, with a still fallback, pause control, offscreen pausing, and reduced-motion support. Never fabricate research footage or repurpose someone else's results.
 
 Keep the interface quiet: natural document flow, no hero statistics, decorative badges, oversized CTA buttons, empty cards, or unnecessary animation. Verify at desktop and narrow mobile widths with actual titles and author lists.
+
+Use a 1280px maximum page width so the full publication titles fit on one line on wide screens. Retain readable type sizes and natural wrapping as the viewport narrows; do not truncate titles or force no-wrap. The browser icon is a blue rounded square with clearly drawn white DH initials.
