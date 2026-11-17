@@ -17,3 +17,5 @@ Research media comes from the actual papers. Video previews are optional, muted 
 Keep the interface quiet: natural document flow, no hero statistics, decorative badges, oversized CTA buttons, empty cards, or unnecessary animation. Verify at desktop and narrow mobile widths with actual titles and author lists.
 
 Use a 1280px maximum page width so the full publication titles fit on one line on wide screens. Retain readable type sizes and natural wrapping as the viewport narrows; do not truncate titles or force no-wrap. The browser icon is a blue rounded square with clearly drawn white DH initials.
+
+Keep experience roles/descriptions and publication authors, venues, summaries, and resource links at 13px on desktop and mobile; dates and supporting notes remain at least 12px. Publication titles remain 16px. Social icons stay visually compact inside 44px-square hit areas, and publication resource links have at least a 44px-square hit area. Paper-image keyboard focus must remain visible inside the rounded media container's clipping edge.
