@@ -31,7 +31,7 @@ npm run preview
 
 For a research video, add the actual MP4 to `public/videos/` and set the corresponding paper's `video` field to `/videos/filename.mp4`. Keep the still image as a fallback. Previews play muted only while visible, have a pause control, and respect reduced-motion preferences. Currently all four papers use still figures.
 
-Publication thumbnails open their full-resolution source images in a new tab. Paper titles and arXiv links open the papers. Keep diagrams intact rather than enlarging the media column at the expense of full desktop titles.
+Publication thumbnails open a full-resolution figure in an on-page modal. Close it with the visible Close button, Escape, or a click/tap on the dark background. Closing restores keyboard focus to the thumbnail and preserves the page position. Native dialog behavior keeps the background inert and keyboard focus inside the viewer. Without JavaScript or dialog support, and for modified clicks, the image link still opens a new tab. Paper titles and arXiv links open the papers. Keep diagrams intact rather than enlarging the media column at the expense of full desktop titles.
 
 The sharing cover describes the personal homepage. Supporting platforms can display it when the homepage URL is shared; they may cache previews. It does not control previews of external arXiv or project links.
 

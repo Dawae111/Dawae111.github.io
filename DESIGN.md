@@ -14,7 +14,7 @@ Keep the email address behind its labeled icon without repeating the address as 
 
 Research media comes from the actual papers. Video previews are optional, muted and inline, with a still fallback, pause control, offscreen pausing, and reduced-motion support. Never fabricate research footage or repurpose someone else's results.
 
-Use MoVieDrive's appendix Figure 19 static three-view, three-modality excerpt and DLWM's author-approved revised Figure 2 pipeline. Retain the TurboVGGT and LangSVR overview figures. Thumbnails open full-resolution source images in a new tab; titles and resource links still lead to papers. The short DLWM summary explains the latent hypotheses and compute allocation without requiring readers to decode the small diagram.
+Use MoVieDrive's appendix Figure 19 static three-view, three-modality excerpt and DLWM's author-approved revised Figure 2 pipeline. Retain the TurboVGGT and LangSVR overview figures. Thumbnails open an on-page full-resolution viewer with a visible Close button, Escape, and background-click dismissal. Preserve the reader's scroll position and restore thumbnail focus after closing. Keep a normal image-link fallback without JavaScript. Titles and resource links still lead to papers. The short DLWM summary explains the latent hypotheses and compute allocation without requiring readers to decode the small diagram.
 
 The homepage sharing cover is a 1200 × 630 typographic image with David's name, university, research areas, and a blue DH monogram. It is used in link previews, not as an additional on-page banner.
 

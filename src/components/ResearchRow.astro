@@ -7,7 +7,7 @@ const { paper } = Astro.props;
 ---
 <article class="paper" id={paper.id}>
   <div class="paper-media" data-preview>
-    <a class="paper-image-link" href={paper.image.src} target="_blank" rel="noopener noreferrer" aria-label={`View full-resolution figure for ${paper.title} (opens in a new tab)`} title="View full-resolution figure (opens in a new tab)">
+    <a class="paper-image-link" href={paper.image.src} target="_blank" rel="noopener noreferrer" data-figure-link data-figure-title={paper.title} aria-label={`View full-resolution figure for ${paper.title} (opens in a new tab)`} title="View full-resolution figure (opens in a new tab)">
       <Image src={paper.image} alt={paper.imageAlt} widths={[320, 640, 960]} sizes="(max-width: 640px) calc(100vw - 40px), 300px" format="webp" quality={90} loading="lazy" />
     </a>
     {paper.video && <>
