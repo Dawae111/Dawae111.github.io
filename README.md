@@ -50,10 +50,10 @@ The site URL is configured in `astro.config.mjs`. If changing domains, also upda
 ## Asset sources
 
 - Portrait: David's supplied photograph, used without generative edits.
-- TurboVGGT figure: https://turbovggt.github.io/Fig_illustration.png
+- TurboVGGT figure: Figure 1 from page 1 of https://arxiv.org/pdf/2605.14315v2. PDF excerpt `(110, 269, 501, 479)`, rendered at 8× to 3128 × 1680. Vector labels and plot lines are rendered directly from the PDF rather than enlarging the earlier 1878 × 1022 project-page PNG.
 - DLWM figure: author-approved revised Figure 2 pipeline (September 24, 2026), supplied from the current manuscript figures. This replaces the earlier arXiv Figure 1 comparison.
 - MoVieDrive figure: the first complete three-view RGB/depth/semantic frame group from appendix Figure 19, page 21 of https://arxiv.org/pdf/2508.14327v2. Direct PDF excerpt at coordinates `(135.22, 101.78, 471.22, 277.98)`, rendered at 2.7×. It shows a static frame group, not temporal continuity. Full figure: https://arxiv.org/html/2508.14327v2/Fig_supple_modal_4.png
-- LangSVR figure: https://arxiv.org/html/2602.15734v1/Fig_illustration.png
+- LangSVR figure: Figure 1 from page 1 of https://arxiv.org/pdf/2602.15734v1. PDF excerpt `(110, 214, 498, 435)`, rendered at 8× to 3104 × 1768, replacing the earlier 858 × 480 HTML image. Labels and linework gain resolution; embedded scene renders retain their original detail.
 - Qualcomm and Huawei logos: Simple Icons, using the brand colors supplied by the package.
 - Tsinghua seal: https://vi.tsinghua.edu.cn/gk/xxbz/xh/bzjbzsy.htm
 - SenseTime logo: https://static.sensetime.com/images/st_logo_ico.png (the official red-orange mark linked by SenseTime's legacy website).
