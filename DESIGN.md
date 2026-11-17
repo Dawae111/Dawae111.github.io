@@ -26,6 +26,12 @@ Use a 1280px maximum page width so the full publication titles fit on one line o
 
 Keep introduction body text at 16px on desktop and mobile. Experience roles/descriptions and publication authors, venues, summaries, and resource links are 14px; dates and supporting notes are 13px. Publication titles remain 16px so wide-screen titles keep their established single-line layout. Social icons stay visually compact inside 44px-square hit areas, and publication resource links have at least a 44px-square hit area. Paper-image keyboard focus must remain visible inside the rounded media container's clipping edge.
 
-Use the high-resolution PDF-derived Figure 1 exports for TurboVGGT and LangSVR so vector labels and plot lines remain clear in the viewer. DLWM retains the approved 3548 × 1774 image. MoVieDrive retains its 908 × 477 excerpt; its component images in the PDF are approximately 303 × 154 each, so increasing the exported dimensions alone would not recover more scene detail. Do not use generative upscaling on scientific results.
+Use the high-resolution PDF-derived Figure 1 exports for TurboVGGT and LangSVR so vector labels and plot lines remain clear in the viewer. DLWM retains the approved 3548 × 1774 image. MoVieDrive retains its excerpt, trimmed to 896 × 477 to remove a black crop-edge strip; its component images in the PDF are approximately 303 × 154 each, so increasing the exported dimensions alone would not recover more scene detail. Do not use generative upscaling on scientific results.
 
 Opening and closing the figure viewer must not shift the background page. Reserve the root scrollbar gutter in both states; disable smooth scrolling while locked, focus controls with preventScroll, and restore the saved reading position instantly before the closing fade and after unlocking. Keep normal smooth anchor navigation outside the viewer.
+
+Store publication figures as lossless WebP so the viewer downloads less with no pixel change; never re-encode scientific figures with lossy settings for the viewer. Pass the loaded thumbnail as the viewer placeholder so a figure appears immediately and sharpens when the full image arrives.
+
+The introduction's second paragraph ends with David's current goal: applying to PhD programs for Fall 2027 and open to research roles in industry. Update or remove that sentence when his plans change.
+
+Social icons use a single styled tooltip; do not add a `title` attribute, which would show a second native tooltip. The page title is "David Huang · University of Toronto", and the homepage includes schema.org Person JSON-LD linking the verified profiles, so people searching his common name can find the site.

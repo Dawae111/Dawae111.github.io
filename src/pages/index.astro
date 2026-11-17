@@ -1,5 +1,5 @@
 ---
-import { Image } from 'astro:assets';
+import { Image, getImage } from 'astro:assets';
 import Page from '../layouts/Page.astro';
 import Icon from '../components/Icon.astro';
 import ResearchRow from '../components/ResearchRow.astro';
@@ -7,8 +7,23 @@ import FigureViewer from '../components/FigureViewer.astro';
 import { profile, socials, experiences, formatMonth } from '../data/profile';
 import { papers } from '../data/research';
 import portrait from '../assets/portrait.jpg';
+
+// Structured data helps search engines connect this page with David's other profiles.
+const personImage = await getImage({ src: portrait, width: 480, format: 'webp', quality: 90 });
+const person = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: profile.name,
+  url: new URL('/', Astro.site).href,
+  image: new URL(personImage.src, Astro.site).href,
+  description: profile.description,
+  affiliation: { '@type': 'CollegeOrUniversity', name: profile.university, url: profile.universityUrl },
+  knowsAbout: ['Video generation', '3D vision', 'Multimodal reasoning'],
+  sameAs: socials.filter(social => social.href.startsWith('https://')).map(social => social.href),
+};
 ---
 <Page>
+  <script is:inline type="application/ld+json" slot="head" set:html={JSON.stringify(person)} />
   <header class="site-header">
     <a class="wordmark" href="#about" aria-label="David Huang, about">David Huang<span class="wordmark-dot" aria-hidden="true">.</span></a>
     <nav aria-label="Main navigation"><a href="#experience">Experience</a><a href="#research">Publications</a></nav>
@@ -22,9 +37,9 @@ import portrait from '../assets/portrait.jpg';
         <h1 id="name">David Huang</h1>
         <p class="intro-affiliation">Computer Engineering · University of Toronto</p>
         <p>I am a Computer Engineering undergraduate at the <a href={profile.universityUrl}>University of Toronto</a>, graduating in 2027. My research interests span <strong>video generation</strong>, <strong>3D vision</strong>, and <strong>multimodal reasoning</strong>.</p>
-        <p>I am interested in models that can generate, understand, and reason about the visual world. My work explores efficient 3D reconstruction, controllable video generation, and reasoning in latent spaces.</p>
+        <p>I am interested in models that can generate, understand, and reason about the visual world. My work explores efficient 3D reconstruction, controllable video generation, and reasoning in latent spaces. I am applying to <strong>PhD programs for Fall 2027</strong> and am also open to research roles in industry.</p>
         <div class="social-links" aria-label="Contact and profiles">
-          {socials.filter(social => social.href).map(social => <a href={social.href} class="social-link" aria-label={social.name} title={social.name}><Icon name={social.icon} /><span class="social-tooltip" aria-hidden="true">{social.name}</span></a>)}
+          {socials.filter(social => social.href).map(social => <a href={social.href} class="social-link" aria-label={social.name}><Icon name={social.icon} /><span class="social-tooltip" aria-hidden="true">{social.name}</span></a>)}
         </div>
       </div>
     </section>

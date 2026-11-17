@@ -1,8 +1,8 @@
 import type { ImageMetadata } from 'astro';
-import turbo from '../assets/turbovggt.png';
-import dlwm from '../assets/dlwm.png';
-import movie from '../assets/moviedrive.png';
-import lang from '../assets/langsvr.png';
+import turbo from '../assets/turbovggt.webp';
+import dlwm from '../assets/dlwm.webp';
+import movie from '../assets/moviedrive.webp';
+import lang from '../assets/langsvr.webp';
 
 export interface Paper {
   id: string;

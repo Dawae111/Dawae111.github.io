@@ -31,12 +31,15 @@ import 'photoswipe/style.css';
       // Detect the input as well as width so landscape phones and tablets retain gestures.
       const detailZoom = window.matchMedia('(pointer: coarse), (hover: none), (max-width: 640px)').matches
         || (event instanceof PointerEvent && event.pointerType === 'touch');
+      const thumbnail = link.querySelector('img');
       const viewer = new PhotoSwipe({
         dataSource: [{
           src: link.href,
+          // Show the already-loaded thumbnail at once; it sharpens when the full figure arrives.
+          msrc: thumbnail?.currentSrc || undefined,
           width: Number(link.dataset.figureWidth),
           height: Number(link.dataset.figureHeight),
-          alt: link.querySelector('img')?.alt || 'Publication figure',
+          alt: thumbnail?.alt || 'Publication figure',
         }],
         mainClass: `figure-viewer ${detailZoom ? 'figure-viewer--detail' : 'figure-viewer--simple'}`,
         bgOpacity: 0.94,
