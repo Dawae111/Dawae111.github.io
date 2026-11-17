@@ -40,9 +40,9 @@ export const papers: Paper[] = [
     title: 'DLWM: Diverse Latent World Models for Efficient Multimodal Reasoning',
     authors: [{ name: 'David Huang' }, { name: 'Lianlei Shan' }],
     venue: 'Preprint · 2026', accepted: false,
-    description: 'Exploring diverse latent hypotheses while adaptively allocating reasoning compute.',
+    description: 'Exploring multiple latent hypotheses with an RL controller that allocates reasoning compute.',
     image: dlwm,
-    imageAlt: 'DLWM comparison of explicit reasoning, single latent trajectories, and diverse latent world hypotheses.',
+    imageAlt: 'DLWM pipeline: multimodal inputs produce diverse latent hypotheses; an RL controller expands, stops, or merges their reasoning paths before aggregating an answer.',
     links: [{ label: 'arXiv', href: 'https://arxiv.org/abs/2606.15160' }],
   },
   {
@@ -52,7 +52,7 @@ export const papers: Paper[] = [
     venue: 'CVPR 2026 Findings', accepted: true,
     description: 'Generating consistent RGB, depth, and semantic videos across multiple driving views.',
     image: movie,
-    imageAlt: 'MoVieDrive generates RGB, depth, and semantic driving scenes from multiple cameras.',
+    imageAlt: 'MoVieDrive static result from appendix Figure 19: three driving views with RGB images, depth maps, and semantic maps arranged in rows.',
     links: [{ label: 'arXiv', href: 'https://arxiv.org/abs/2508.14327' }],
   },
   {

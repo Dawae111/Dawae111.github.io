@@ -27,8 +27,13 @@ npm run preview
 - `src/assets/`: portrait and paper illustrations; Astro creates optimized WebP variants during the build.
 - `src/styles/global.css`: responsive layout, fonts, colors, and spacing.
 - `public/logos/`: institution logos.
+- `public/images/david-huang-social.jpg`: 1200 × 630 homepage sharing cover, referenced by Open Graph and X card metadata in `src/layouts/Page.astro`.
 
 For a research video, add the actual MP4 to `public/videos/` and set the corresponding paper's `video` field to `/videos/filename.mp4`. Keep the still image as a fallback. Previews play muted only while visible, have a pause control, and respect reduced-motion preferences. Currently all four papers use still figures.
+
+Publication thumbnails open their full-resolution source images in a new tab. Paper titles and arXiv links open the papers. Keep diagrams intact rather than enlarging the media column at the expense of full desktop titles.
+
+The sharing cover describes the personal homepage. Supporting platforms can display it when the homepage URL is shared; they may cache previews. It does not control previews of external arXiv or project links.
 
 Contact links appear as compact icons in Email, LinkedIn, Google Scholar, GitHub, and X order. The email address is available through its `mailto:` link but is not repeated as visible text. New code and project links should only be added once they are live.
 
@@ -46,12 +51,13 @@ The site URL is configured in `astro.config.mjs`. If changing domains, also upda
 
 - Portrait: David's supplied photograph, used without generative edits.
 - TurboVGGT figure: https://turbovggt.github.io/Fig_illustration.png
-- DLWM figure: https://arxiv.org/html/2606.15160v1/figures/intro_comparison.png
-- MoVieDrive figure: https://arxiv.org/html/2508.14327v2/Fig_illustration.png
+- DLWM figure: author-approved revised Figure 2 pipeline (September 24, 2026), supplied from the current manuscript figures. This replaces the earlier arXiv Figure 1 comparison.
+- MoVieDrive figure: the first complete three-view RGB/depth/semantic frame group from appendix Figure 19, page 21 of https://arxiv.org/pdf/2508.14327v2. Direct PDF excerpt at coordinates `(135.22, 101.78, 471.22, 277.98)`, rendered at 2.7×. It shows a static frame group, not temporal continuity. Full figure: https://arxiv.org/html/2508.14327v2/Fig_supple_modal_4.png
 - LangSVR figure: https://arxiv.org/html/2602.15734v1/Fig_illustration.png
 - Qualcomm and Huawei logos: Simple Icons, using the brand colors supplied by the package.
 - Tsinghua seal: https://vi.tsinghua.edu.cn/gk/xxbz/xh/bzjbzsy.htm
 - SenseTime logo: https://static.sensetime.com/images/st_logo_ico.png (the official red-orange mark linked by SenseTime's legacy website).
 - Manrope and Newsreader fonts: self-hosted Fontsource packages, supplied under their respective licenses.
+- Social sharing cover: generated typographic artwork using David's name, university, research areas, and website URL; resized and encoded as a 1200 × 630 JPEG. No generated research results or portrait edits.
 
 Paper author lists and venue labels follow the linked public records. Submitted work without a verified acceptance is labeled as a preprint. See `DESIGN.md` for the design direction.

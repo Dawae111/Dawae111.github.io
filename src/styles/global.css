@@ -74,7 +74,7 @@
   .role { font-size: 13px; color: #435465; margin-top: 1px; }
   .experience-description { font-size: 13px; color: var(--muted); margin-top: 4px; line-height: 1.65; }
   .paper-media { position: relative; overflow: hidden; border-radius: 9px; background: white; border: 1px solid var(--rule); }
-  .paper-image-link { display: block; padding: 12px; }
+  .paper-image-link { display: block; padding: 12px; cursor: zoom-in; }
   /* Keep keyboard focus inside the rounded media container's clipping edge. */
   .paper-image-link:focus-visible { outline-offset: -4px; border-radius: 8px; }
   .paper-image-link img { width: 100%; height: 176px; object-fit: contain; transition: transform .24s ease; }
