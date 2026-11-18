@@ -43,7 +43,11 @@ export const papers: Paper[] = [
     description: 'Exploring multiple latent hypotheses with an RL controller that allocates reasoning compute.',
     image: dlwm,
     imageAlt: 'DLWM pipeline: multimodal inputs produce diverse latent hypotheses; an RL controller expands, stops, or merges their reasoning paths before aggregating an answer.',
-    links: [{ label: 'arXiv', href: 'https://arxiv.org/abs/2606.15160' }],
+    links: [
+      { label: 'arXiv', href: 'https://arxiv.org/abs/2606.15160' },
+      { label: 'Project', href: 'https://dawae111.github.io/DLWM/' },
+      { label: 'Code', href: 'https://github.com/Dawae111/DLWM' },
+    ],
   },
   {
     id: 'moviedrive',
